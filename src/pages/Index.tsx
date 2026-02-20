@@ -1,17 +1,19 @@
+import { useState, useEffect, useCallback } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
-import heroTeam from "@/assets/hero-team.jpg";
+import heroSlide1 from "@/assets/hero-slide-1.jpg";
+import heroSlide2 from "@/assets/hero-slide-2.jpg";
+import heroSlide3 from "@/assets/hero-slide-3.jpg";
+import testimonial1 from "@/assets/testimonial-1.jpg";
+import testimonial2 from "@/assets/testimonial-2.jpg";
+import testimonial3 from "@/assets/testimonial-3.jpg";
 import {
   Factory,
   Scissors,
   Zap,
   Truck,
   Globe,
-  Upload,
-  FileText,
-  CheckCircle,
-  Package,
   MessageCircle,
   Quote,
   ArrowRight,
@@ -21,6 +23,12 @@ import {
 
 const WHATSAPP_URL =
   "https://wa.me/258849999999?text=Olá%20Hilexo%2C%20gostaria%20de%20solicitar%20um%20orçamento.";
+
+const slides = [
+  { img: heroSlide1, headline: "Uniformes Profissionais para Hotéis e Restaurantes em Vilankulo" },
+  { img: heroSlide2, headline: "Produção Local com Bordado de Alta Qualidade" },
+  { img: heroSlide3, headline: "Eleve a Imagem da Sua Equipa" },
+];
 
 const diferenciais = [
   { icon: Factory, title: "Produção própria", desc: "Controlo total de qualidade em cada peça" },
@@ -39,46 +47,79 @@ const galeria = [
   { title: "Estampagem", img: "/placeholder.svg" },
 ];
 
-const passos = [
-  { icon: Upload, num: "01", title: "Envia o logotipo", desc: "Partilha o logo e as necessidades da sua equipa" },
-  { icon: FileText, num: "02", title: "Recebe proposta", desc: "Elaboramos orçamento detalhado" },
-  { icon: CheckCircle, num: "03", title: "Aprova", desc: "Confirme os detalhes e avançamos" },
-  { icon: Package, num: "04", title: "Produzimos e entregamos", desc: "Fabricação rápida com entrega garantida" },
-];
-
 const depoimentos = [
   {
-    nome: "Carlos M.",
-    cargo: "Gerente, Hotel Baía",
+    nome: "Carlos Machava",
+    cargo: "Proprietário de Restaurante",
     texto: "A Hilexo transformou a imagem da nossa equipa. Uniformes de qualidade e entrega dentro do prazo.",
+    foto: testimonial1,
   },
   {
-    nome: "Ana R.",
-    cargo: "Proprietária, Restaurante Oceano",
+    nome: "Fátima Nhantumbo",
+    cargo: "Directora de Escola",
     texto: "Profissionalismo do início ao fim. O bordado ficou perfeito e o atendimento foi excelente.",
+    foto: testimonial2,
   },
   {
-    nome: "João S.",
-    cargo: "Director, Escola Primária Sol",
-    texto: "Forneceram fardamentos para toda a escola. Qualidade superior a um preço justo.",
+    nome: "André Cossa",
+    cargo: "Chef Executivo, Hotel Baía",
+    texto: "Forneceram fardamentos para toda a equipa do hotel. Qualidade superior a um preço justo.",
+    foto: testimonial3,
   },
 ];
 
 const Index = () => {
+  const [current, setCurrent] = useState(0);
+
+  const next = useCallback(() => {
+    setCurrent((c) => (c + 1) % slides.length);
+  }, []);
+
+  useEffect(() => {
+    const timer = setInterval(next, 5000);
+    return () => clearInterval(timer);
+  }, [next]);
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
 
-      {/* Hero */}
-      <section className="relative pt-24 pb-16 md:pt-32 md:pb-24">
-        <div className="container mx-auto px-4">
-          <div className="grid items-center gap-10 md:grid-cols-2">
-            <div>
-              <h1 className="text-3xl font-extrabold leading-tight tracking-tight md:text-5xl lg:text-6xl">
-                Uniformes Profissionais para{" "}
-                <span className="text-primary">Hotéis e Restaurantes</span> em Vilankulo
+      {/* Hero Carousel */}
+      <section className="relative h-screen min-h-[600px] overflow-hidden">
+        {slides.map((slide, i) => (
+          <div
+            key={i}
+            className={`absolute inset-0 transition-opacity duration-1000 ${
+              i === current ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <img
+              src={slide.img}
+              alt={slide.headline}
+              className="h-full w-full object-cover"
+              loading={i === 0 ? "eager" : "lazy"}
+            />
+            <div className="absolute inset-0 bg-background/70" />
+          </div>
+        ))}
+
+        <div className="relative z-10 flex h-full items-center">
+          <div className="container mx-auto px-4">
+            <div className="max-w-3xl">
+              <h1
+                key={current}
+                className="text-4xl font-extrabold leading-tight tracking-tight text-foreground md:text-5xl lg:text-7xl animate-fade-in"
+              >
+                {slides[current].headline.split(" ").map((word, wi) => {
+                  const highlights = ["Hotéis", "Restaurantes", "Bordado", "Qualidade", "Imagem", "Equipa"];
+                  return highlights.includes(word) ? (
+                    <span key={wi} className="text-primary">{word} </span>
+                  ) : (
+                    <span key={wi}>{word} </span>
+                  );
+                })}
               </h1>
-              <p className="mt-5 text-lg text-muted-foreground max-w-lg">
+              <p className="mt-6 text-lg text-muted-foreground max-w-lg">
                 Produção local com prazo garantido, bordado de alta qualidade e acabamento profissional.
               </p>
               <a
@@ -91,38 +132,41 @@ const Index = () => {
                 Solicitar Orçamento no WhatsApp
               </a>
             </div>
-            <div className="relative">
-              <img
-                src={heroTeam}
-                alt="Equipa uniformizada profissionalmente pela Hilexo MZ"
-                className="w-full rounded-2xl shadow-2xl object-cover aspect-[4/3]"
-                loading="eager"
-              />
-              <div className="absolute -bottom-4 -left-4 rounded-xl bg-primary px-5 py-3 text-primary-foreground font-bold shadow-lg text-sm hidden md:block">
-                +500 equipas fardadas
-              </div>
+
+            {/* Slide indicators */}
+            <div className="mt-12 flex gap-2">
+              {slides.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrent(i)}
+                  className={`h-1.5 rounded-full transition-all duration-500 ${
+                    i === current ? "w-10 bg-primary" : "w-6 bg-foreground/30"
+                  }`}
+                  aria-label={`Slide ${i + 1}`}
+                />
+              ))}
             </div>
           </div>
         </div>
       </section>
 
       {/* Diferenciais */}
-      <section id="servicos" className="bg-secondary py-16 md:py-24">
+      <section id="servicos" className="py-20 md:py-28">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl font-bold md:text-3xl">Porquê Escolher a Hilexo?</h2>
+          <h2 className="text-2xl font-bold md:text-3xl text-foreground">Porquê Escolher a Hilexo?</h2>
           <p className="mt-3 text-muted-foreground max-w-xl mx-auto">
             Somos referência em fardamentos profissionais em Vilankulo e em todo Moçambique.
           </p>
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
             {diferenciais.map((d) => (
               <div
                 key={d.title}
-                className="group rounded-xl bg-background p-6 shadow-sm hover:shadow-md transition-shadow text-center"
+                className="group rounded-xl bg-card p-6 border border-border hover:border-primary/40 transition-colors text-center"
               >
                 <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                   <d.icon size={26} />
                 </div>
-                <h3 className="font-semibold">{d.title}</h3>
+                <h3 className="font-semibold text-foreground">{d.title}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{d.desc}</p>
               </div>
             ))}
@@ -131,21 +175,21 @@ const Index = () => {
       </section>
 
       {/* Galeria */}
-      <section id="galeria" className="py-16 md:py-24">
+      <section id="galeria" className="py-20 md:py-28 bg-secondary">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl font-bold md:text-3xl">Galeria de Trabalhos</h2>
+          <h2 className="text-2xl font-bold md:text-3xl text-foreground">Galeria de Trabalhos</h2>
           <p className="mt-3 text-muted-foreground">Alguns dos nossos trabalhos mais recentes.</p>
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {galeria.map((g) => (
-              <div key={g.title} className="group relative overflow-hidden rounded-xl bg-secondary aspect-[4/3]">
+              <div key={g.title} className="group relative overflow-hidden rounded-xl bg-card aspect-[4/3]">
                 <img
                   src={g.img}
                   alt={g.title}
                   className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 flex items-end bg-gradient-to-t from-foreground/70 to-transparent p-5">
-                  <span className="text-sm font-semibold text-background">{g.title}</span>
+                <div className="absolute inset-0 flex items-end bg-gradient-to-t from-background/80 to-transparent p-5">
+                  <span className="text-sm font-semibold text-foreground">{g.title}</span>
                 </div>
               </div>
             ))}
@@ -154,15 +198,15 @@ const Index = () => {
       </section>
 
       {/* Problema e Solução */}
-      <section className="bg-secondary py-16 md:py-24">
+      <section className="py-20 md:py-28">
         <div className="container mx-auto px-4">
           <div className="grid gap-10 md:grid-cols-2 items-center">
-            <div className="rounded-2xl bg-background p-8 md:p-10 border border-border">
+            <div className="rounded-2xl bg-card p-8 md:p-10 border border-border">
               <div className="flex items-center gap-3 text-destructive mb-4">
                 <XCircle size={28} />
                 <span className="font-bold text-lg">O Problema</span>
               </div>
-              <h3 className="text-xl font-bold md:text-2xl">
+              <h3 className="text-xl font-bold md:text-2xl text-foreground">
                 Equipa sem fardamento transmite desorganização.
               </h3>
               <p className="mt-3 text-muted-foreground">
@@ -185,7 +229,7 @@ const Index = () => {
                 href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-6 inline-flex items-center gap-2 rounded-lg bg-background text-primary px-6 py-3 font-semibold text-sm hover:bg-background/90 transition-colors"
+                className="mt-6 inline-flex items-center gap-2 rounded-lg bg-foreground text-background px-6 py-3 font-semibold text-sm hover:bg-foreground/90 transition-colors"
               >
                 Resolver agora <ArrowRight size={16} />
               </a>
@@ -194,38 +238,26 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Processo */}
-      <section id="processo" className="py-16 md:py-24">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl font-bold md:text-3xl">Processo Simples</h2>
-          <p className="mt-3 text-muted-foreground">Do pedido à entrega em 4 passos.</p>
-          <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {passos.map((p) => (
-              <div key={p.num} className="relative text-center">
-                <span className="text-5xl font-black text-primary/10">{p.num}</span>
-                <div className="mx-auto -mt-4 mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                  <p.icon size={24} />
-                </div>
-                <h3 className="font-semibold">{p.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{p.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Depoimentos */}
-      <section id="depoimentos" className="bg-secondary py-16 md:py-24">
+      <section id="depoimentos" className="bg-secondary py-20 md:py-28">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl font-bold md:text-3xl">O Que Dizem os Nossos Clientes</h2>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
+          <h2 className="text-2xl font-bold md:text-3xl text-foreground">O Que Dizem os Nossos Clientes</h2>
+          <div className="mt-14 grid gap-6 md:grid-cols-3">
             {depoimentos.map((d) => (
-              <div key={d.nome} className="rounded-xl bg-background p-6 shadow-sm text-left">
-                <Quote size={24} className="text-primary/30 mb-3" />
+              <div key={d.nome} className="rounded-xl bg-card p-6 border border-border text-left">
+                <Quote size={24} className="text-primary/40 mb-4" />
                 <p className="text-muted-foreground leading-relaxed">{d.texto}</p>
-                <div className="mt-5 border-t pt-4">
-                  <p className="font-semibold">{d.nome}</p>
-                  <p className="text-xs text-muted-foreground">{d.cargo}</p>
+                <div className="mt-6 flex items-center gap-4 border-t border-border pt-5">
+                  <img
+                    src={d.foto}
+                    alt={d.nome}
+                    className="h-12 w-12 rounded-full object-cover ring-2 ring-primary/30"
+                    loading="lazy"
+                  />
+                  <div>
+                    <p className="font-semibold text-foreground">{d.nome}</p>
+                    <p className="text-xs text-muted-foreground">{d.cargo}</p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -234,9 +266,9 @@ const Index = () => {
       </section>
 
       {/* CTA Final */}
-      <section className="py-16 md:py-24">
+      <section className="py-20 md:py-28">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl font-bold md:text-4xl">
+          <h2 className="text-2xl font-bold md:text-4xl text-foreground">
             Eleve o padrão da sua equipa <span className="text-primary">hoje.</span>
           </h2>
           <p className="mt-4 text-muted-foreground max-w-lg mx-auto">
