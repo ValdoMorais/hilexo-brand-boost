@@ -5,6 +5,12 @@ import WhatsAppFloat from "@/components/WhatsAppFloat";
 import heroSlide1 from "@/assets/hero-slide-1.jpg";
 import heroSlide2 from "@/assets/hero-slide-2.jpg";
 import heroSlide3 from "@/assets/hero-slide-3.jpg";
+import galeria1 from "@/assets/chefe.png";
+import galeria2 from "@/assets/avental.png";
+import galeria3 from "@/assets/recepcao.png";
+import galeria4 from "@/assets/seguranca.png";
+import galeria5 from "@/assets/maquinas.png";
+import galeria6 from "@/assets/construcao.png";
 import testimonial1 from "@/assets/testimonial-1.jpg";
 import testimonial2 from "@/assets/testimonial-2.jpg";
 import testimonial3 from "@/assets/testimonial-3.jpg";
@@ -22,10 +28,13 @@ import {
 } from "lucide-react";
 
 const WHATSAPP_URL =
-  "https://wa.me/258849999999?text=Olá%20Hilexo%2C%20gostaria%20de%20solicitar%20um%20orçamento.";
+  "https://wa.me/258846777776?text=Olá%20Hilexo%2C%20gostaria%20de%20solicitar%20um%20orçamento.";
 
 const slides = [
-  { img: heroSlide1, headline: "Uniformes Profissionais para Hotéis e Restaurantes em Vilankulo" },
+  {
+    img: heroSlide1,
+    headline: "Uniformes Profissionais para Hotéis e Restaurantes em Vilankulo",
+  },
   { img: heroSlide2, headline: "Produção Local com Bordado de Alta Qualidade" },
   { img: heroSlide3, headline: "Eleve a Imagem da Sua Equipa" },
 ];
@@ -39,12 +48,12 @@ const diferenciais = [
 ];
 
 const galeria = [
-  { title: "Polos Bordadas", img: "/placeholder.svg" },
-  { title: "Aventais", img: "/placeholder.svg" },
-  { title: "Uniformes Completos", img: "/placeholder.svg" },
-  { title: "Bonés Personalizados", img: "/placeholder.svg" },
-  { title: "Máquinas em Produção", img: "/placeholder.svg" },
-  { title: "Estampagem", img: "/placeholder.svg" },
+  { title: "Chefe de cozinha", img: galeria1 },
+  { title: "Aventais", img: galeria2 },
+  { title: "Recepção", img: galeria3 },
+  { title: "Segurança ", img: galeria4 },
+  { title: "Produção", img: galeria5 },
+  { title: "construção civil", img: galeria6 },
 ];
 
 const depoimentos = [
@@ -81,7 +90,8 @@ const Index = () => {
   }, [next]);
 
   return (
-    <div className="min-h-screen bg-background">
+    // ✅ Dark global (sem refatorar classes em cada seção)
+    <div className="dark min-h-screen bg-background text-foreground">
       <Navbar />
 
       {/* Hero Carousel */}
@@ -99,7 +109,9 @@ const Index = () => {
               className="h-full w-full object-cover"
               loading={i === 0 ? "eager" : "lazy"}
             />
-            <div className="absolute inset-0 bg-background/70" />
+
+            {/* ✅ Overlay preto premium para legibilidade */}
+            <div className="absolute inset-0 bg-black/70" />
           </div>
         ))}
 
@@ -113,15 +125,20 @@ const Index = () => {
                 {slides[current].headline.split(" ").map((word, wi) => {
                   const highlights = ["Hotéis", "Restaurantes", "Bordado", "Qualidade", "Imagem", "Equipa"];
                   return highlights.includes(word) ? (
-                    <span key={wi} className="text-primary">{word} </span>
+                    <span key={wi} className="text-primary">
+                      {word}{" "}
+                    </span>
                   ) : (
                     <span key={wi}>{word} </span>
                   );
                 })}
               </h1>
-              <p className="mt-6 text-lg text-muted-foreground max-w-lg">
+
+              {/* ✅ Melhor leitura no fundo escuro */}
+              <p className="mt-6 text-lg text-foreground/80 max-w-lg">
                 Produção local com prazo garantido, bordado de alta qualidade e acabamento profissional.
               </p>
+
               <a
                 href={WHATSAPP_URL}
                 target="_blank"
@@ -188,7 +205,7 @@ const Index = () => {
                   className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 flex items-end bg-gradient-to-t from-background/80 to-transparent p-5">
+                <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/80 to-transparent p-5">
                   <span className="text-sm font-semibold text-foreground">{g.title}</span>
                 </div>
               </div>
@@ -219,9 +236,7 @@ const Index = () => {
                 <Award size={28} />
                 <span className="font-bold text-lg">A Solução</span>
               </div>
-              <h3 className="text-xl font-bold md:text-2xl">
-                Hilexo: uniformes que elevam o padrão.
-              </h3>
+              <h3 className="text-xl font-bold md:text-2xl">Hilexo: uniformes que elevam o padrão.</h3>
               <p className="mt-3 text-primary-foreground/80">
                 Fardamentos personalizados com bordado profissional, entregues no prazo e com a qualidade que o seu negócio merece.
               </p>

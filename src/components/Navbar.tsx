@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import logoHilexo from "@/assets/logo-hilexo.png";
 
-const WHATSAPP_URL = "https://wa.me/258849999999?text=Olá%20Hilexo%2C%20gostaria%20de%20solicitar%20um%20orçamento.";
+const WHATSAPP_URL = "https://wa.me/258846777776?text=Olá%20Hilexo%2C%20gostaria%20de%20solicitar%20um%20orçamento.";
 
 const navLinks = [
   { label: "Serviços", href: "#servicos" },
