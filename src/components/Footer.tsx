@@ -24,9 +24,9 @@ const Footer = () => (
         <div>
           <h4 className="font-semibold text-foreground mb-4">Contactos</h4>
           <ul className="space-y-3 text-sm text-muted-foreground">
-            <li className="flex items-center gap-2"><MapPin size={16} /> Vilankulo, Moçambique</li>
-            <li className="flex items-center gap-2"><Phone size={16} /> +258 84 999 9999</li>
-            <li className="flex items-center gap-2"><Mail size={16} /> info@hilexo.co.mz</li>
+            <li className="flex items-center gap-2"><MapPin size={16} /> Rua Nova, Vilankulos, Inhambane</li>
+            <li className="flex items-center gap-2"><Phone size={16} /> +258 84 677 7776</li>
+            <li className="flex items-center gap-2"><Mail size={16} /> hilexomz@gmail.com</li>
           </ul>
         </div>
       </div>
