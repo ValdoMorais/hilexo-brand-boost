@@ -2,9 +2,9 @@ import { useState, useEffect, useCallback } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
-import heroSlide1 from "@/assets/hero-slide-1.jpg";
-import heroSlide2 from "@/assets/hero-slide-2.jpg";
-import heroSlide3 from "@/assets/hero-slide-3.jpg";
+import heroSlide1 from "@/assets/hero-slide-1.png";
+import heroSlide2 from "@/assets/hero-slide-2.png";
+import heroSlide3 from "@/assets/hero-slide-3.png";
 import galeria1 from "@/assets/chefe.png";
 import galeria2 from "@/assets/avental.png";
 import galeria3 from "@/assets/recepcao.png";
@@ -33,9 +33,9 @@ const WHATSAPP_URL =
 const slides = [
   {
     img: heroSlide1,
-    headline: "Uniformes Profissionais para Hotéis e Restaurantes em Vilankulo",
+    headline: "Produção Local com acabamento de Alta Qualidade",
   },
-  { img: heroSlide2, headline: "Produção Local com Bordado de Alta Qualidade" },
+  { img: heroSlide2, headline: "Uniformes Profissionais para Hotéis e Restaurantes em Vilankulo" },
   { img: heroSlide3, headline: "Eleve a Imagem da Sua Equipa" },
 ];
 
@@ -111,7 +111,7 @@ const Index = () => {
             />
 
             {/* ✅ Overlay preto premium para legibilidade */}
-            <div className="absolute inset-0 bg-black/70" />
+            <div className="absolute inset-0 bg-black/55" />
           </div>
         ))}
 
@@ -170,9 +170,9 @@ const Index = () => {
       {/* Diferenciais */}
       <section id="servicos" className="py-20 md:py-28">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl font-bold md:text-3xl text-foreground">Porquê Escolher a Hilexo?</h2>
+          <h2 className="text-2xl font-bold md:text-3xl text-foreground">Porquê Escolher a Nossa Empresa?</h2>
           <p className="mt-3 text-muted-foreground max-w-xl mx-auto">
-            Somos referência em fardamentos profissionais em Vilankulo e em todo Moçambique.
+            Produzimos fardamentos profissionais com padrão industrial, acabamento premium e entrega organizada — a partir de Vilankulo para todo Moçambique.
           </p>
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
             {diferenciais.map((d) => (
@@ -236,7 +236,7 @@ const Index = () => {
                 <Award size={28} />
                 <span className="font-bold text-lg">A Solução</span>
               </div>
-              <h3 className="text-xl font-bold md:text-2xl">Hilexo: uniformes que elevam o padrão.</h3>
+              <h3 className="text-xl font-bold md:text-2xl">Uniformes que elevam o padrão.</h3>
               <p className="mt-3 text-primary-foreground/80">
                 Fardamentos personalizados com bordado profissional, entregues no prazo e com a qualidade que o seu negócio merece.
               </p>
